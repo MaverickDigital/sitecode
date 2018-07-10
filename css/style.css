@@ -52,7 +52,7 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 --------------------------------------------------------------*/
 
 html {
-  font-family: sans-serif;
+  font-family: Montserrat, sans-serif;
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
@@ -337,8 +337,7 @@ html {
  margin: 0!important;
 }
 body {
-  overflow-x: hidden;
-  overflow-y: scroll;
+  overflow: hidden;
 }
 html,
 body,
@@ -384,6 +383,11 @@ a:active{
   background-color: #000;
   height: 100%;
 }
+.video-background {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+}
 .video--cover {
   position: absolute;
   top: 50%;
@@ -393,7 +397,7 @@ a:active{
   height: auto; }
   @media (min-aspect-ratio: 16 / 9) and (min-width: 768px) {
     .video--cover {
-      width: 100%;
+      width: auto;
       height: auto; } }
   @media (max-aspect-ratio: 16 / 9) and (min-width: 768px) {
     .video--cover {
@@ -401,7 +405,7 @@ a:active{
       min-height: 100%; } }
   @media (min-aspect-ratio: 9 / 16) and (max-width: 767px) {
     .video--cover {
-      width: 100%;
+      width: auto;
       height: auto; } }
   @media (max-aspect-ratio: 9 / 16) and (max-width: 767px) {
     .video--cover {
@@ -467,7 +471,7 @@ a:active{
         @media screen and (max-width: 768px) {
           .content-main ul.menu li a {
             font-size: 3.4375rem;
-            line-height: 1; } }
+            line-height: 1.5; } }
         @media screen and (max-width: 767px) {
           .content-main ul.menu li a {
             font-size: 10vw; } }
@@ -533,16 +537,22 @@ a:active{
       display: none;
   }
   .logo-container {
-      position: relative;
+      position: fixed;
       z-index: 1;
       float: left;
-      padding: 2vw 5vw;
+      padding: 0 1vw;
       opacity: 0;
+    top: 0;
   }
+  .logo-container img,
   .logo-container a,
   .logo-container a img {
     -webkit-box-shadow: none;
     box-shadow: none;
+  margin-top: 50px;
+  }
+  .logo-container a img {
+    width: 50%;
   }
   .home.logo-container {
       display: none;
@@ -653,36 +663,124 @@ a:active{
         text-transform: uppercase;
         font-size: 1.375rem;
         line-height: 1.27273; }
-/*.scroller-container {
-    height: 80%;
-    width: 80%;
-    overflow: hidden;
-    position: relative;
-    line-height: 30px;
+.menu-anchors {
+  display: none;
 }
-.scroller{
-    width: 100%;
-    height: 99%;
-    overflow: auto;
-    padding-right: 15px;
-}*/
-.scroll-container {
-  overflow: hidden;
-  line-height: 30px;
+#scroll-container {
+  width: 100%;
+  margin: 20px auto;
+  position: relative;
 }
-
-.scroller {  
+#scroller {
+  width: 80%;
+  margin: 0 10%;
   overflow: hidden;
   z-index: 10;
-  display: flex;
   justify-content: center;  
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  padding-right: 15px;
+  text-align: left;
+  line-height: 30px;
+}
+@media (min-width: 992px) {
+  .menu-anchors {
+    display: block;
+  }
+}
+@media (min-width: 992px) {
+  #scroller {
+    width: 80%;
+  margin: 0;
+  padding: 0 14vw;
+  }
+}
+@media (min-width: 1200px) {
+  #scroller {
+    width: 100%;
+  margin: 0;
+  padding: 0 4vw;
+  }
+}
+.menu-anchors {
+    position: fixed;
+  right: 30px;
+    top: 50px;
+    z-index: 1;
+}
+.menu-anchors a {
+    cursor: pointer;
+    position: relative;
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    line-height: 32px;
+    transition: all .3s ease-out;
+  text-align: right;
+}
+.menu-anchors a.active {
+    padding-right: 40px;
+}
+.menu-anchors a span {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: all .3s ease-out;
+}
+.menu-anchors a.active span {
+    width: 36px;
+}
+@media (max-width: 992px) {
+  .tagline-container {
+    font-size: 3rem;
+  }
+  .logo-container {
+    width:100%;
+    background-color: #000;
+      z-index: 9999;
+  }
+  .logo-container a img {
+    width: 30%;
+      margin: 50px auto 10px;
+      display: block;
+  }
 }
 
+.progress-bar {
+  position: absolute;
+  bottom: 0;
+  background-color: #FFF;
+  width: 0;
+  height: 4px;
+  left: 0;
+  z-index: 999;
+  transition: all 4s ease-out;
+}
 
+.progress-bar.active {
+    width: 100%;
+}
+#preload {
+  display: none;
+}
 
+.logo-list {
+  padding-left: 40%;
+  
+}
+.logo-list > div {
+  min-height: 300px;
+  
+}
+.logo-list img {
+  height: 300px;
+  
+}
 
 
 

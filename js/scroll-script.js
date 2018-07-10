@@ -1,68 +1,46 @@
-var html = document.documentElement;
-var body = document.body;
+if (window.addEventListener) window.addEventListener('DOMMouseScroll', wheel, false);
+window.onmousewheel = document.onmousewheel = wheel;
 
-var scroller = {
-  target: document.querySelector("#scroll-container"),
-  ease: 0.05, // <= scroll speed
-  endY: 0,
-  y: 0,
-  resizeRequest: 1,
-  scrollRequest: 0,
-};
+function wheel(event) {
 
-var requestId = null;
+    var delta = 0;
+    if (event.wheelDelta) delta = event.wheelDelta / 120;
+    else if (event.detail) delta = -event.detail / 3;
 
-TweenLite.set(scroller.target, {
-  rotation: 0.01,
-  force3D: true
-});
-
-window.addEventListener("load", onLoad);
-
-function onLoad() {    
-  updateScroller();  
-  window.focus();
-  window.addEventListener("resize", onResize);
-  document.addEventListener("scroll", onScroll); 
+    handle(delta);
+    if (event.preventDefault) event.preventDefault();
+    event.returnValue = false;
 }
 
-function updateScroller() {
-  
-  var resized = scroller.resizeRequest > 0;
-    
-  if (resized) {    
-    var height = scroller.target.clientHeight;
-    body.style.height = height + "px";
-    scroller.resizeRequest = 0;
+var goUp = true;
+var end = null;
+var interval = null;
+
+function handle(delta) {
+  var animationInterval = 20; //lower is faster
+  var scrollSpeed = 20; //lower is faster
+
+  if (end == null) {
+    end = $(window).scrollTop();
   }
-      
-  var scrollY = window.pageYOffset || html.scrollTop || body.scrollTop || 0;
+  end -= 20 * delta;
+  goUp = delta > 0;
 
-  scroller.endY = scrollY;
-  scroller.y += (scrollY - scroller.y) * scroller.ease;
-
-  if (Math.abs(scrollY - scroller.y) < 0.05 || resized) {
-    scroller.y = scrollY;
-    scroller.scrollRequest = 0;
-  }
-  
-  TweenLite.set(scroller.target, { 
-    y: -scroller.y 
-  });
-  
-  requestId = scroller.scrollRequest > 0 ? requestAnimationFrame(updateScroller) : null;
-}
-
-function onScroll() {
-  scroller.scrollRequest++;
-  if (!requestId) {
-    requestId = requestAnimationFrame(updateScroller);
+  if (interval == null) {
+    interval = setInterval(function () {
+      var scrollTop = $(window).scrollTop();
+//    logoBkg(scrollTop)
+      var step = Math.round((end - scrollTop) / scrollSpeed);
+      if (scrollTop <= 0 || 
+          scrollTop >= $(window).prop("scrollHeight") - $(window).height() ||
+          goUp && step > -1 || 
+          !goUp && step < 1 ) {
+        clearInterval(interval);
+        interval = null;
+        end = null;
+      }
+      $(window).scrollTop(scrollTop + step );
+    }, animationInterval);
   }
 }
 
-function onResize() {
-  scroller.resizeRequest++;
-  if (!requestId) {
-    requestId = requestAnimationFrame(updateScroller);
-  }
-}
