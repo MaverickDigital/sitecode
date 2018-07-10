@@ -549,7 +549,9 @@ a:active{
   .logo-container a img {
     -webkit-box-shadow: none;
     box-shadow: none;
-  margin-top: 50px;
+  margin: 50px auto 0;
+    width: 180px;
+    display: block;
   }
   .logo-container a img {
     width: 50%;
@@ -743,6 +745,9 @@ a:active{
     width:100%;
     background-color: #000;
       z-index: 9999;
+  }
+  .home .logo-container {
+    background-color: transparent;
   }
   .logo-container a img {
     width: 30%;
