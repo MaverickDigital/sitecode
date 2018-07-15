@@ -52,13 +52,14 @@ Styles based on Normalize v5.0.0 @link https://github.com/necolas/normalize.css
 --------------------------------------------------------------*/
 
 html {
-  font-family: Montserrat, sans-serif;
+  font-family: Montserrat, sans-serif!important;
   line-height: 1.15;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
 }
 
 body {
+  font-family: Montserrat, sans-serif!important;
   margin: 0;
 }
 
@@ -72,8 +73,14 @@ section {
 }
 
 h1 {
-  font-size: 2em;
+  font-size: 2.5em;
   margin: 0.67em 0;
+  text-align: center;
+}
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 figcaption,
@@ -541,7 +548,7 @@ a:active{
       z-index: 1;
       float: left;
       padding: 0 1vw;
-      opacity: 0;
+      opacity: 0.8;
     top: 0;
   }
   .logo-container img,
@@ -550,11 +557,9 @@ a:active{
     -webkit-box-shadow: none;
     box-shadow: none;
   margin: 50px auto 0;
-    width: 180px;
     display: block;
-  }
-  .logo-container a img {
-    width: 50%;
+  position: relative;
+  z-index: 1;
   }
   .home.logo-container {
       display: none;
@@ -562,7 +567,14 @@ a:active{
   .content-homepage {
       display: none;
   }
-
+.bottom ul {
+  list-style: none;
+}
+.bottom ul li a {
+  text-transform: uppercase;
+  text-decoration: none;
+}
+  
 /* inner-pages */
 .inner-page {
   text-align: center;
@@ -643,7 +655,7 @@ a:active{
     padding-top: 150px;
     padding-bottom: 150px;
     width: 100%;
-    max-width: 850px;
+/*     max-width: 850px; */
     margin: 0 auto;
     height: auto; }
     .inner-page .wrapper .animate-list a {
@@ -674,8 +686,6 @@ a:active{
   position: relative;
 }
 #scroller {
-  width: 80%;
-  margin: 0 10%;
   overflow: hidden;
   z-index: 10;
   justify-content: center;  
@@ -689,25 +699,11 @@ a:active{
     display: block;
   }
 }
-@media (min-width: 992px) {
-  #scroller {
-    width: 80%;
-  margin: 0;
-  padding: 0 14vw;
-  }
-}
-@media (min-width: 1200px) {
-  #scroller {
-    width: 100%;
-  margin: 0;
-  padding: 0 4vw;
-  }
-}
 .menu-anchors {
     position: fixed;
   right: 30px;
     top: 50px;
-    z-index: 1;
+    z-index: 99;
 }
 .menu-anchors a {
     cursor: pointer;
@@ -737,20 +733,37 @@ a:active{
 .menu-anchors a.active span {
     width: 36px;
 }
+.logo-container {
+  width:100%;
+  z-index: 9;
+  display: none;
+}
+.inner-page .logo-container {
+  display: block;
+}
+.logo-container-mask {
+  position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.7;
+    z-index: 0;
+  -webkit-box-shadow: 0px 3px 3px #000;
+    box-shadow: 0px 3px 3px #000;
+}
+.home .logo-container {
+  background-color: transparent;
+  width: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 @media (max-width: 992px) {
   .tagline-container {
     font-size: 3rem;
   }
-  .logo-container {
-    width:100%;
-    background-color: #000;
-      z-index: 9999;
-  }
-  .home .logo-container {
-    background-color: transparent;
-  }
   .logo-container a img {
-    width: 30%;
       margin: 50px auto 10px;
       display: block;
   }
@@ -773,19 +786,17 @@ a:active{
 #preload {
   display: none;
 }
-
-.logo-list {
-  padding-left: 40%;
-  
-}
-.logo-list > div {
-  min-height: 300px;
-  
-}
 .logo-list img {
-  height: 300px;
-  
+  width: 100%;
 }
+@media (min-width: 768px) {
+  .logo-list img {
+    height: 200px;
+    width: auto;
+  }
+}
+
+
 
 
 
