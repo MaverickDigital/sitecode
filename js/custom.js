@@ -1,7 +1,8 @@
-var isMobile = false;
-if($(window).width() < 768) {
-    isMobile = true;
-}
+var isMobile = true;
+// if (/Mobi|Android/i.test(navigator.userAgent)) {
+//     isMobile = true;
+// }
+
 videoPreload =  {
     init: function() {
         this.vidCount = $("#preload video").length;
@@ -10,14 +11,13 @@ videoPreload =  {
     loopVids: function() {
         var self = this;
         $("#preload video").each(function(idx,val){
-            self.checkLoad(val)
+            self.checkLoad(val);
         })
     },
     checkLoad: function(vid) {
         var self = this;
         vid.onloadeddata = function() {
-            self.vidCount--
-            console.log(self.vidCount)
+            self.vidCount--;
             if(self.vidCount == 0) {
                 setTimeout(function(){
                     showHomepage(); 
@@ -25,7 +25,7 @@ videoPreload =  {
             }
         };
     }
-}
+};
 
 var getQueryVariable = function(variable) {
     var query = window.location.search.substring(1);
@@ -35,7 +35,7 @@ var getQueryVariable = function(variable) {
         if(pair[0] == variable){return pair[1];}
     }
     return(false);
-}
+};
 var fadeOutTagline = function() {
     TweenMax.staggerTo(".tagline", 1, {
         alpha: 0,
@@ -44,7 +44,7 @@ var fadeOutTagline = function() {
     }, 0, function(){
         showLogo();
     })
-}
+};
 
 var showLogo = function() {
     $(".intro-logo").fadeIn("slow");
@@ -53,10 +53,10 @@ var showLogo = function() {
     setTimeout(function(){
         $(".intro-logo").fadeOut("slow");
         $(".intro-video").fadeOut("slow");
-        if(isMobile) showHomepage();
+        if(isMobile == true) showHomepage();
     },3500)
 
-}
+};
 
 var showHomepage = function() {
     $(".content-homepage").fadeIn("slow");
@@ -87,10 +87,9 @@ var showHomepage = function() {
     }, .25, function() {
 
     })
-}
+};
 
 if( !getQueryVariable("loaded") ) {
-
     if(!isMobile) videoPreload.init();
     
     setTimeout(function(){
@@ -121,18 +120,47 @@ else {
     showHomepage();
 }
 
-$(".logo-container a").click(function(){
-    document.location.href="/?loaded=y";
-})
+// $(".home-click").click(function(e){
+//  e.preventDefault();
+//  document.location.href="/?loaded=y";
+// })
+
+var clickAnimation = function(menuitem){
+    menuitem
+        .fadeOut()
+        .addClass("clicked")
+    $( ".item-menu" ).each(function() {
+        if(!$(this).hasClass("clicked")) {
+            $(this).fadeOut(500,function(){
+                menuitem
+                    .removeClass("clicked")
+                    .fadeIn()
+                    .parent().animate({ 
+                        top: "20px",
+                        bottom: "-20px",
+                      }, 300, function(){
+                        setTimeout(function(){
+                            document.location.href = menuitem.attr("href");
+                        },500)
+                    } );
+            });
+        };
+    });
+};
+
 var defaultVid = "/wp-content/uploads/2018/07/default.mp4";
 $( ".item-menu" ).each(function( idx, value ) {
     $(this).mouseenter(function() {
         $(".video-background video").attr("src",$(this).attr("vidSrc"));
     });
     $(this).mouseleave(function() {
-//      $(".video-background video").attr("src",$(this).attr("vidSrc"));
         $(".video-background video").attr("src",defaultVid);
     });
+    $(this).click(function(e){
+        e.preventDefault();
+        $(this).off( "mouseleave" )
+        clickAnimation($(this))
+    })
 });
 TweenMax.set("h3", {
     alpha: 0,
@@ -188,18 +216,4 @@ $(".menu-anchors a").each(function(){
             });
     })
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
