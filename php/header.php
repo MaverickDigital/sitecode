@@ -67,3 +67,10 @@
 
 	<div class="site-content-contain">
 		<div id="content" class="site-content">
+			<div class="logo-container">
+				<a href="/?loaded=y" style="cursor: pointer">
+					<img class="logo-desktop" src="/wp-content/uploads/2018/07/logo_white_120.png" alt="Maverick Logo" />
+					<img class="logo-mobile" src="/wp-content/uploads/2018/07/logo_white_60.png" alt="Maverick Logo" />
+				</a>
+				<div class="logo-container-mask"></div>
+			</div>

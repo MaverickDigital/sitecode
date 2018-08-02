@@ -60,27 +60,13 @@ var showLogo = function() {
 
 var showHomepage = function() {
     $(".content-homepage").fadeIn("slow");
-    $(".logo-container").fadeIn("2000");
+    $(".home-logo-container").fadeIn("2000");
 
     TweenMax.set(".list-menu", {
         alpha: 0,
         y: "20%"
     })
-
-    TweenMax.set(".logo-container", {
-        alpha: 0,
-        y: "20%"
-    })
-
     TweenMax.staggerTo(".list-menu", 1, {
-        alpha: 1,
-        y: "0%",
-        ease: Expo.easeInOut
-    }, .25, function() {
-
-    })
-
-    TweenMax.staggerTo(".logo-container", 1, {
         alpha: 1,
         y: "0%",
         ease: Expo.easeInOut
@@ -120,12 +106,8 @@ else {
     showHomepage();
 }
 
-// $(".home-click").click(function(e){
-//  e.preventDefault();
-//  document.location.href="/?loaded=y";
-// })
-
 var clickAnimation = function(menuitem){
+    $(".home-logo-container").fadeOut();
     menuitem
         .fadeOut()
         .addClass("clicked")
@@ -186,13 +168,6 @@ TweenMax.staggerTo(".wrapper a", 2, {
 
 })
 
-TweenMax.staggerTo(".inner-page .logo-container", 1, {
-    alpha: 1,
-    ease: Expo.easeInOut,
-}, .75, function(){
-
-})
-
 $(".menu-anchors a").hover(
     function () {
         $(this).addClass("active");
@@ -216,4 +191,11 @@ $(".menu-anchors a").each(function(){
             });
     })
 });
+
+// INJECT CUSTOM LOGO HEADER INTO BLOG
+
+// $(function() {
+//  var logoHeader = '<div class="logo-container"><a href="/?loaded=y" style="cursor: pointer"><img class="logo-desktop" src="/wp-content/uploads/2018/07/logo_white_120.png" alt="Maverick Logo" /><img class="logo-mobile" src="/wp-content/uploads/2018/07/logo_white_60.png" alt="Maverick Logo" /></a><div class="logo-container-mask"></div></div>';
+//  $( ".site-content" ).prepend(logoHeader);
+// });
 
