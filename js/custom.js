@@ -1,10 +1,20 @@
+if ($("body").hasClass("home")) {
+    $(".video-background.home").show(); 
+    $(".video-background.inner").hide();
+} else {
+    $(".video-background.home").hide();
+    $(".video-background.inner").show();    
+}
+
 var isMobile = true;
+// var isMobile = false;
 // if (/Mobi|Android/i.test(navigator.userAgent)) {
 //     isMobile = true;
 // }
 
 videoPreload =  {
     init: function() {
+        console.log('init')
         this.vidCount = $("#preload video").length;
         this.loopVids();
     },
@@ -15,6 +25,7 @@ videoPreload =  {
         })
     },
     checkLoad: function(vid) {
+        console.log(vid)
         var self = this;
         vid.onloadeddata = function() {
             self.vidCount--;
@@ -61,7 +72,9 @@ var showLogo = function() {
 var showHomepage = function() {
     $(".content-homepage").fadeIn("slow");
     $(".home-logo-container").fadeIn("2000");
-
+    if ($("body").hasClass("home")) {
+        $(".video-background.home").show();
+    }
     TweenMax.set(".list-menu", {
         alpha: 0,
         y: "20%"
@@ -76,6 +89,9 @@ var showHomepage = function() {
 };
 
 if( !getQueryVariable("loaded") ) {
+    console.log('not loaded')
+    $(".video-background.home").hide();
+    
     if(!isMobile) videoPreload.init();
     
     setTimeout(function(){
@@ -96,9 +112,10 @@ if( !getQueryVariable("loaded") ) {
     }, .25, function() {
         fadeOutTagline();
     })
-
+    
 } 
 else {
+
     TweenMax.set(".tagline", {
         alpha: 0,
         y: "20%"
@@ -130,13 +147,12 @@ var clickAnimation = function(menuitem){
     });
 };
 
-var defaultVid = "/wp-content/uploads/2018/07/default.mp4";
 $( ".item-menu" ).each(function( idx, value ) {
     $(this).mouseenter(function() {
         $(".video-background video").attr("src",$(this).attr("vidSrc"));
     });
     $(this).mouseleave(function() {
-        $(".video-background video").attr("src",defaultVid);
+        $(".video-background video").attr("src",defaultVidSrc);
     });
     $(this).click(function(e){
         e.preventDefault();
@@ -191,6 +207,30 @@ $(".menu-anchors a").each(function(){
             });
     })
 });
+
+// temp hack for Safari issue - flashing on reload
+$(window).bind("pageshow", function(event) {
+    if (event.originalEvent.persisted) {
+        window.location.reload() 
+    }
+});
+
+// SHOW/HIDE VIDEO BKG
+// $(function() {
+//  if ($("body").hasClass("home")) {
+//      $(".video-background.home").show(); 
+//  } else {
+//      $(".video-background.inner").show();    
+//  }   
+// });
+
+// INJECT VIDEO BKG
+
+// $(function() {
+//  var VideoBkg = '<div class="video-background"><video class="video--cover menu-video" poster="" src="/wp-content/uploads/2018/08/inner.mp4" autoplay="" playsinline="" muted="" loop=""></video></div>';
+//  $( ".site-content" ).prepend(VideoBkg);
+        
+// });
 
 // INJECT CUSTOM LOGO HEADER INTO BLOG
 

@@ -1,21 +1,15 @@
 Scripts in header:
 
-<link rel="stylesheet" href="/wp-content/themes/maverick/assets/css/fonts.css" type="text/css" charset="utf-8" />
-<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-122497703-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-122497703-1');
-</script>
-Above script will be inserted into the <head> section.
 
 Scripts in footer:
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.1/TweenMax.min.js"></script>
-<script src="/wp-content/themes/maverick/assets/js/custom.js"></script>
-<script src="/wp-content/themes/maverick/assets/js/scroll-script.js"></script>
-Above script will be inserted just before </body> tag using wp_footer hook.
+<script>
+    var defaultVidSrc = "/wp-content/uploads/2018/08/default_720.mp4";
+    var vidBkgHome = document.getElementById("videoBackgroundHome");
+    vidBkgHome.src = defaultVidSrc;
+
+    var innerVidSrc = "/wp-content/uploads/2018/08/inner_720.mp4";
+    var vidBkgInner = document.getElementById("videoBackgroundInner");
+    vidBkgInner.src = innerVidSrc;
+</script>
